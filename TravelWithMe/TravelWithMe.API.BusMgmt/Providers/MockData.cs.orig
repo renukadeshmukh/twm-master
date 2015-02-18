@@ -1,0 +1,179 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using TravelWithMe.API.Core.Model;
+
+namespace TravelWithMe.API.BusMgmt.Providers
+{
+    public class MockData
+    {
+        public static List<Location> fromcityList = new List<Location>(){
+            new Location(){CityName= "Latur", CityCode= "LUR",Latitude=18.4000M,Longitude=76.5833M,State = "Maharashtra" }, 
+            new Location(){ CityName= "Pune", CityCode= "PUN",Latitude=18.5236M,Longitude = 73.8478M,State = "Maharashtra" }, 
+            new Location(){ CityName= "Delhi", CityCode= "DEL",Latitude=28.664M,Longitude = 77.224M,State = "Delhi"}
+        };
+
+        public static List<Location> tocityList = new List<Location>(){
+            new Location(){CityName= "Mumbai", CityCode= "MUM",Latitude=19.109M,Longitude=72.879M,State = "Maharashtra" }, 
+        new Location(){ CityName= "Nashik", CityCode= "NAS",Latitude=18.5236M,Longitude = 73.8478M,State = "Maharashtra" }, 
+        new Location(){ CityName= "Udagir", CityCode= "UDA",Latitude=28.664M,Longitude = 77.224M,State = "Maharashtra"}};
+
+        public static List<string> amenities = new List<string>() { "Television", "Charging Point", "Blanket", "Water Bottle" };
+        public static List<bool> acnonac = new List<bool>() { true, false, true, false, true, true, false };
+        public static List<BusSchedule> busFrequencies = new List<BusSchedule>()
+        {
+            new BusSchedule
+            {
+                BusTripFrequency= BusTripFrequency.Daily,
+                Weekdays= null,
+                DateRange= null
+            },
+            new BusSchedule
+            {
+                BusTripFrequency= BusTripFrequency.SpecificWeekDays,
+                Weekdays= new List<Weekday>(){Weekday.Monday,Weekday.Saturday,Weekday.Sunday},
+                DateRange= null
+            },
+            new BusSchedule
+            {
+                BusTripFrequency= BusTripFrequency.SpecificDates,
+                Weekdays= null,
+                DateRange= new List<DateRange>()
+                {
+                    new DateRange{ RangeId= Guid.NewGuid().ToString(), FromDate= Convert.ToDateTime("Jan 12, 2012"), ToDate= Convert.ToDateTime("Jan 12, 2012") },
+                    new DateRange{ RangeId= Guid.NewGuid().ToString(), FromDate= Convert.ToDateTime("Feb 13, 2012"), ToDate= Convert.ToDateTime("Feb 13, 2012") },
+                    new DateRange{ RangeId= Guid.NewGuid().ToString(), FromDate= Convert.ToDateTime("Dec 30, 2012"), ToDate= Convert.ToDateTime("Dec 30, 2012")}
+                }
+            }
+        };
+        public static List<int> berths = new List<int> { 0, 12, 30 };
+        public static List<int> seats = new List<int> { 0, 34, 48, 38, 60 };
+
+        public static T Random<T>(List<T> list)
+            where T : class
+        {
+            Random rnd = new Random();
+            var randNum = rnd.Next(list.Count);
+            return list[randNum];
+        }
+
+        public static int RandomIndx<T>(List<T> list) where T : struct
+        {
+            Random random = new Random();
+            return random.Next(list.Count);
+        }
+
+        public static BusType Random()
+        {
+            Array values = Enum.GetValues(typeof(BusType));
+            Random random = new Random();
+            BusType randomBar = (BusType)values.GetValue(random.Next(values.Length));
+            return randomBar;
+        }
+
+        public static SeatArrangementType RandomSAT()
+        {
+            Array values = Enum.GetValues(typeof(SeatArrangementType));
+            Random random = new Random();
+            SeatArrangementType randomBar = (SeatArrangementType)values.GetValue(random.Next(values.Length));
+            return randomBar;
+        }
+
+        public static List<string> GetAmenities()
+        {
+            List<int> lst = new List<int>();
+            for (int i = 0; i < 2; i++)
+            {
+                Random random = new Random();
+                int val = random.Next(amenities.Count);
+                if (lst.Contains(val) == false)
+                    lst.Add(val);
+                else i--;
+            }
+            return new List<string>() { amenities[lst[0]], amenities[lst[1]] };
+        }
+
+        public List<int> Rand<T>(List<T> list, int cnt) where T : struct
+        {
+            List<int> retList = new List<int>();
+            for (int i = 0; i < cnt; i++)
+            {
+                int val = RandomIndx(list);
+                if (retList.Contains(val) == false)
+                    retList.Add(val);
+                else i--;
+
+            }
+            return retList;
+
+        }
+        public static List<BusInfo> GetMockBuses()
+        {
+            List<BusInfo> buses = new List<BusInfo>();
+            for (int i = 1; i < 20; i++)
+            {
+                Location from = (Location)Random(fromcityList).Clone();
+                Location to = (Location)Random(tocityList).Clone();
+                DateTime dt = DateTime.Now;
+                BusInfo bus = new BusInfo()
+                {
+                    BusTripId = i.ToString(),
+                    BusOperatorId = "1",
+                    BusName = "Bus" + i,
+                    FromLoc = from,//{ CityName= from.Name, CityCode= from.Code },
+                    ToLoc = to,//{ CityName= to.Name, CityCode= to.Code },
+                    DepartureTime = new BusTime() { Days = 0, Hours = 8, Minutes = 30, Meridian = Meridian.PM, MinutesOfJourney = 0 },
+                    ArrivalTime = new BusTime() { Days = 1, Hours = 10, Minutes = 30, Meridian = Meridian.AM, MinutesOfJourney = 870 },
+                    BusType = Random(),
+                    IsAC = acnonac[RandomIndx<bool>(acnonac)],
+                    BusSchedule = (BusSchedule)Random(busFrequencies).Clone(),
+
+                   
+                    SeatArrangement = new SeatArrangement { Id = 1, SeatArrangementType = RandomSAT(), NoOfSeats = seats[RandomIndx<int>(seats)], NoOfBirths = berths[RandomIndx<int>(berths)] }
+                };
+                buses.Add(bus);
+                bus.BusOperatorId = "2";
+                buses.Add(bus);
+            }
+            buses[0].ArrivalTime.Days = 1;
+            buses[1].ArrivalTime.Days = 2;
+            return buses;
+        }
+
+        public static Dictionary<string,CityPoint> GetMockCityPoints(Location from, Location to)
+        {
+           
+          return  new Dictionary<string, CityPoint>()
+             {
+                {"1", new CityPoint{ CPId= "1", CPTime= new BusTime(){Hours = 8,Minutes =30,Meridian = Meridian.PM,Days = 0,MinutesOfJourney = 30}, CpName= "Ganjgolai", IsDropOffPoint= false, IsPickupPoint= true, CityName= from.CityName, CityCode= from.CityCode,Lat=19.109M,Long=77.224M }},
+                {"2" ,new CityPoint{ CPId= "2", CPTime= new BusTime(){Hours = 9,Minutes =45,Meridian = Meridian.PM,Days = 0,MinutesOfJourney = 105}, CpName= "ShiwajiChawk", IsDropOffPoint= false, IsPickupPoint= true, CityName= from.CityName, CityCode= from.CityCode,Lat=19.109M ,Long=77.224M}},
+                {"3" ,new CityPoint{ CPId= "3", CPTime= new BusTime(){Hours = 11,Minutes =55,Meridian = Meridian.PM,Days = 0,MinutesOfJourney = 235}, CpName= "5Number", IsDropOffPoint= false, IsPickupPoint= true, CityName= from.CityName, CityCode= from.CityCode,Lat=19.109M ,Long=77.224M}},
+                { "4",new CityPoint{ CPId= "4", CPTime= new BusTime(){Hours = 4,Minutes =10,Meridian = Meridian.AM,Days = 1,MinutesOfJourney = 490}, CpName= "Hadapsar", IsDropOffPoint= true, IsPickupPoint= false, CityName= to.CityName, CityCode= to.CityCode,Lat=19.109M ,Long=77.224M}},
+                { "5",new CityPoint{ CPId= "5", CPTime= new BusTime(){Hours = 6,Minutes =20,Meridian = Meridian.AM,Days = 1,MinutesOfJourney = 620}, CpName= "Shiwaji Nagar", IsDropOffPoint= true, IsPickupPoint= false, CityName= to.CityName, CityCode= to.CityCode,Lat=19.109M ,Long=77.224M}},
+                { "6",new CityPoint{ CPId= "6", CPTime= new BusTime(){Hours = 10,Minutes =30,Meridian = Meridian.AM,Days = 1,MinutesOfJourney = 870}, CpName= "Pimpari", IsDropOffPoint= true, IsPickupPoint= false, CityName= to.CityName, CityCode= to.CityCode,Lat=19.109M,Long=77.224M }}
+            
+          };
+                      
+        }
+
+        public static Dictionary<string, BusRate> GetMockRates()
+        {
+
+            return new Dictionary<string, BusRate>()
+                {
+                    {"1",new BusRate(){ RateId= "1", DateFrom= Convert.ToDateTime("Feb 1, 2012"),DateTo= Convert.ToDateTime("Aug 1, 2012"), WeekDayRate= 250, WeekEndRate= 300 }},
+                    {"2",new BusRate(){RateId= "2", DateFrom= Convert.ToDateTime("Aug 2, 2012"), DateTo= Convert.ToDateTime("Dec 1, 2012"), WeekDayRate= 350, WeekEndRate= 400 }}
+                },
+                    Amenities = GetAmenities(),
+                    SeatMap = null
+                }
+            ;
+        }
+
+        internal static List<string> GetDefaultSeatMaps()
+        {
+            return new List<string>();
+        }
+    }
+}

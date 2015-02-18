@@ -1,0 +1,51 @@
+﻿<table width="100%" cellspacing="0" cellpadding="0" class="itinerary" id="seatArrengment{$T.Itinerary.BusTripId}">
+    <tbody>
+        <tr>
+            <td width="10%" align="left" valign="middle" colspan="6">
+                <div>
+                    <div id="seatMapArea">
+                        <div class="seatmaparea" style="width: 70%">
+                            <div class="deck">
+                                <div class="cabin">
+                                    <div class="lowerDeck"></div>
+                                </div>
+                            </div>
+                            <div class="deck">
+                                <div class="cabin">
+                                    <div class="upperDeck"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="seatBookInfo" style="width: 22%; float:right ">
+                            <table width="100%" style="table-layout: fixed">
+                                <tr>
+                                    <td width="80%">Available seats</td>
+                                    <td width="20%"><div class="avialMarker"></div></td>
+                                </tr>
+                                <tr>
+                                    <td width="80%">Reserved seats</td>
+                                    <td width="20%"><div class="reserveMarker"></div></td>
+                                </tr>
+                                {#if $T.Itinerary.SeatMap.BerthCount != 0}
+                                <tr>
+                                    <td width="80%">Berth Count</td>
+                                    <td width="20%">{$T.Itinerary.SeatMap.BerthCount}</td>
+                                </tr>
+                                {#/if}
+                                {#if $T.Itinerary.SeatMap.SeatCount != 0}
+                                <tr>
+                                    <td width="80%">Seats Count</td>
+                                    <td width="20%">{$T.Itinerary.SeatMap.SeatCount}</td>
+                                </tr>
+                                {#/if}
+                                <tr>
+                                    <td colspan="2" width="60%">Booked seat(s):</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

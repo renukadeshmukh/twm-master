@@ -1,0 +1,73 @@
+﻿<div>
+    <form id="frmBusRate">
+    <h1 id="dialogHeader">
+        Add or Update bus rate
+    </h1>
+    <div class="ico-close">
+    </div>
+    <div class="clear">
+    </div>
+    <div class="formbox">
+        <div class="formcontent">
+            <br />
+            <div>
+                <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="Table1">
+                    <tr>
+                        <th width="30%" align="left" valign="middle">
+                            From
+                        </th>
+                        <th width="30%" align="left" valign="middle">
+                            To
+                        </th>
+                        <th width="20%" align="center" valign="middle">
+                            Weekday Rate
+                        </th>
+                        <th width="20%" align="center" valign="middle">
+                            Weekend Rate
+                        </th>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="left" valign="middle">
+                            <input name="txtDateFrom" type="text" class="width150 mrs" id="txtDateFrom" value="{$T.DateFrom}" />
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            <input name="txtDateTo" type="text" class="width150 mrs" id="txtDateTo" value="{$T.DateTo}" />
+                        </td>
+                        <td width="20%" align="center" valign="middle">
+                            Rs. <input name="txtWeekDayRate" type="text" class="width75 mrs" id="txtWeekDayRate" value="{$T.WeekDayRate}" />
+                        </td>
+                        <td width="20%" align="center" valign="middle">
+                            Rs. <input name="txtWeekEndRate" type="text" class="width75 mrs" id="txtWeekEndRate" value="{$T.WeekEndRate}" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="Table3">
+                <tbody>
+                    <tr>
+                        <td width="100%" align="right" valign="middle">
+                            <div class="btnholder">
+                                <a href="#" class="button_orange" onclick="busManager.BR.SaveBtn_click('{$T.RateId}');">
+                                    Save</a>
+                            </div>
+                            <div class="btnholder">
+                                <a href="#" class="button_orange" id="btnCancel">Cancel</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clear">
+            </div>
+            <div class="clear">
+            </div>
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    </form>
+</div>
+<div class="clear">
+</div>

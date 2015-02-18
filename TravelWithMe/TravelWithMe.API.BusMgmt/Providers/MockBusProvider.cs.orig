@@ -1,0 +1,423 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using TravelWithMe.API.Interfaces;
+using TravelWithMe.API.Core.Model;
+using System.Web;
+using System.Web.Caching;
+using TravelWithMe.API.AccountMgmt.Providers;
+
+
+namespace TravelWithMe.API.BusMgmt.Providers
+{
+    public class MockBusProvider : IBusProvider
+    {
+        #region IBusProvider members
+
+        public string _busKey = "Buses";
+        public string _cp = "Cp";
+        public string _amenities = "Amenities";
+        public string _rates = "Rates";
+        public string _schedule = "BusSchedule";
+
+        private readonly IAuthenticationProvider _authenticationProvider;
+
+        public MockBusProvider(IAuthenticationProvider authenticationProvider)
+        {
+            _authenticationProvider = authenticationProvider;
+            //MockAccountProvider accProvider = new MockAccountProvider(_authenticationProvider);
+            var buses = HttpRuntime.Cache[_busKey] as Dictionary<int, BusInfo>;
+            var cityPoints = HttpRuntime.Cache[_cp] as Dictionary<int, Dictionary<string, CityPoint>>;
+            var amenities = HttpRuntime.Cache[_busKey] as Dictionary<int, List<string>>;
+            var rates = HttpRuntime.Cache[_rates] as Dictionary<int, Dictionary<string, BusRate>>;
+            var schedule = HttpRuntime.Cache[_schedule] as Dictionary<int, BusSchedule>;
+
+            if (buses == null || buses.Count ==0)
+            {
+                #region add buses to cache
+                buses = new Dictionary<int, BusInfo>();
+                List<BusInfo> busList = MockData.GetMockBuses();
+                foreach (var item in busList)
+                    buses.Add(item.BusTripId, item);
+                HttpRuntime.Cache.Insert(_busKey, buses, null, Cache.NoAbsoluteExpiration,
+                                         DateTime.Now.AddHours(1) - DateTime.Now,
+                                         CacheItemPriority.Normal,
+                                         null);
+                #endregion
+            }
+
+            if (cityPoints == null || cityPoints.Count==0)
+            {
+                #region add cps to cache
+                cityPoints = new Dictionary<int, Dictionary<string, CityPoint>>();
+
+                foreach (var item in buses)
+                {
+                    Dictionary<string, CityPoint> cpList = MockData.GetMockCityPoints(item.Value.FromLoc, item.Value.ToLoc);
+                    cityPoints.Add(item.Value.BusTripId, cpList);
+                }
+
+                HttpRuntime.Cache.Insert(_cp, cityPoints, null, Cache.NoAbsoluteExpiration,
+                                         DateTime.Now.AddHours(1) - DateTime.Now,
+                                         CacheItemPriority.Normal,
+                                         null);
+                #endregion
+            }
+
+            if (amenities == null || amenities.Count==0)
+            {
+                #region add amenities to cache
+                amenities = new Dictionary<int, List<string>>();
+
+                foreach (var item in buses)
+                {
+                    amenities[item.Value.BusTripId] = MockData.GetAmenities();
+                }
+
+                HttpRuntime.Cache.Insert(_amenities, amenities, null, Cache.NoAbsoluteExpiration,
+                                         DateTime.Now.AddHours(1) - DateTime.Now,
+                                         CacheItemPriority.Normal,
+                                         null);
+                #endregion
+            }
+
+            if (rates == null|| rates.Count==0)
+            {
+                #region add rates to cache
+                rates = new Dictionary<int, Dictionary<string, BusRate>>();
+
+                foreach (var item in buses)
+                {
+                    Dictionary<string, BusRate> rateList = MockData.GetMockRates();
+                    rates.Add(item.Value.BusTripId, rateList);
+                }
+
+                HttpRuntime.Cache.Insert(_rates, rates, null, Cache.NoAbsoluteExpiration,
+                                         DateTime.Now.AddHours(1) - DateTime.Now,
+                                         CacheItemPriority.Normal,
+                                         null);
+                #endregion
+            }
+            if (schedule == null||schedule.Count==0)
+            {
+                #region add schedule to cache
+                schedule = new Dictionary<int, BusSchedule>();
+
+                foreach (var item in buses)
+                {
+                    schedule.Add(item.Value.BusTripId, MockData.GetMockSchedule());
+                }
+
+                HttpRuntime.Cache.Insert(_schedule, schedule, null, Cache.NoAbsoluteExpiration,
+                                         DateTime.Now.AddHours(1) - DateTime.Now,
+                                         CacheItemPriority.Normal,
+                                         null);
+                #endregion
+            }
+
+            foreach (int busTripId in buses.Keys)
+            {
+                BusInfo busInfo = buses[busTripId];
+                busInfo.CityPoints = cityPoints[busTripId].Values.ToList();
+                busInfo.BusSchedule = schedule[busTripId];
+                busInfo.BusRates = rates[busTripId].Values.ToList();
+                busInfo.Amenities = amenities[busTripId];
+            }
+        }
+
+        public int AddBus(Core.Model.BusInfo busInfo)
+        {
+            Dictionary<int, BusInfo> buses = HttpRuntime.Cache[_busKey] as Dictionary<int, BusInfo>;
+            int[] bustripIds = buses.Keys.ToArray();
+            int maxId = bustripIds.Max();
+            busInfo.BusTripId = maxId+1;
+            buses[busInfo.BusTripId] = busInfo;
+            return busInfo.BusTripId;
+        }
+
+        public bool DeleteBus(int busTripId)
+        {
+            Dictionary<int, BusInfo> buses = HttpRuntime.Cache[_busKey] as Dictionary<int, BusInfo>;
+            int key = buses.Where(x => x.Value.BusTripId == busTripId).Select(x => x.Key).First();
+            if (key != null && !string.Equals(key, string.Empty))
+                buses.Remove(key);
+            return true;
+        }
+
+        public BusInfo GetBus(int busTripId)
+        {
+            BusInfo bus = GetBusFromBusTripId(busTripId);
+            return bus;
+        }
+
+        public List<Core.Model.BusInfo> GetAllBuses(string busOperatorId)
+        {
+            Dictionary<int, BusInfo> busesDict = HttpRuntime.Cache[_busKey] as Dictionary<int, BusInfo>;
+            List<BusInfo> buses = new List<BusInfo>();
+            foreach (var item in busesDict)
+            {
+                if (string.Equals(item.Value.BusOperatorId, busOperatorId, StringComparison.InvariantCultureIgnoreCase))
+                {
+
+                    BusInfo bus = new BusInfo()
+                                      {
+                                          ArrivalTime = item.Value.ArrivalTime,
+                                          BusName = item.Value.BusName,
+                                          BusOperatorId = item.Value.BusOperatorId,
+                                          BusTripId = item.Value.BusTripId,
+                                          DepartureTime = item.Value.DepartureTime,
+                                          FromLoc = item.Value.FromLoc,
+                                          ToLoc = item.Value.ToLoc
+                                      };
+                    buses.Add(bus);
+                }
+
+            }
+            return buses;
+        }
+
+        public bool UpdateBusDetails(BusInfo busInfo)
+        {
+            if (busInfo == null)
+                return false;
+            BusInfo bus = GetBusFromBusTripId(busInfo.BusTripId);
+            if (bus == null)
+                return false;
+            bus.BusName = busInfo.BusName;
+            bus.FromLoc = bus.FromLoc ?? new Location();
+            bus.FromLoc = UpdateLoc(busInfo.FromLoc.CityName);
+            bus.ToLoc = UpdateLoc(busInfo.ToLoc.CityName);
+            bus.DepartureTime = busInfo.DepartureTime;
+            bus.ArrivalTime = busInfo.ArrivalTime;
+            return true;
+        }
+
+        public BusSchedule GetBusSchedule(int busTripId)
+        {
+            BusSchedule busSch = GetBusScheduleFromBusTripId(busTripId);
+            return busSch;
+        }
+
+        public bool UpdateBusScheduleDetails(int busTripId, BusSchedule busSchedule)
+        {
+            if (busSchedule == null)
+                return false;
+            BusSchedule busSch = GetBusScheduleFromBusTripId(busTripId);
+            if (busSch == null)
+                return false;
+            Dictionary<int, BusSchedule> schDict = HttpRuntime.Cache[_schedule] as Dictionary<int, BusSchedule>;
+            schDict[busTripId] = new BusSchedule(busSchedule);
+            return true;
+        }
+
+        public bool UpdateAC(int busTripId, bool isAC)
+        {
+            BusInfo bus = GetBusFromBusTripId(busTripId);
+            if (bus == null)
+                return false;
+            bus.IsAC = isAC;
+            return true;
+        }
+
+        public string GetSeatMap(int busTripId)
+        {
+            BusInfo bus = GetBusFromBusTripId(busTripId);
+            if (bus == null)
+                return null;
+            return bus.SeatMap;
+        }
+
+        public bool UpdateSeatMap(int busTripId, string seatMap)
+        {
+            BusInfo bus = GetBusFromBusTripId(busTripId);
+            if (bus == null)
+                return false;
+            bus.SeatMap = seatMap;
+            return true;
+        }
+
+        public List<string> GetDefaultSeatMaps()
+        {
+            return MockData.GetDefaultSeatMaps();
+        }
+
+        public string AddCityPoint(int bustripId, CityPoint cityPoint)
+        {
+            Dictionary<string, CityPoint> cp = GetBusCityPointsFromTripId(bustripId);
+            if (cityPoint == null)
+                return null;
+            if (cp == null)
+                cp = new Dictionary<string, CityPoint>();
+
+            cityPoint.CPId = Guid.NewGuid().ToString();
+            cp[cityPoint.CPId] = new CityPoint(cityPoint);
+            return cityPoint.CPId;
+        }
+
+        public bool DeleteCityPoint(int bustripId, string cpId)
+        {
+            Dictionary<string, CityPoint> cp = GetBusCityPointsFromTripId(bustripId);
+            if (cp == null || !cp.ContainsKey(cpId))
+                return false;
+            cp.Remove(cpId);
+            return true;
+        }
+
+        public List<CityPoint> GetAllCityPoints(int bustripId)
+        {
+            Dictionary<string, CityPoint> cp = GetBusCityPointsFromTripId(bustripId);
+            if (cp != null && cp.Values != null)
+            {
+                return cp.Values.ToList();
+            }
+            return null;
+        }
+
+        public bool UpdateCityPoint(int bustripId, CityPoint cpt)
+        {
+            Dictionary<string, CityPoint> cp = GetBusCityPointsFromTripId(bustripId);
+            if (cp == null || !cp.ContainsKey(cpt.CPId))
+                return false;
+
+            cp[cpt.CPId] = new CityPoint(cpt);
+               
+            return true;
+        }
+
+        public bool DeleteBusRate(int bustripId, string busRateId)
+        {
+            Dictionary<string, BusRate> br = GetBusRatesFromTripId(bustripId);
+            if (br == null)
+                return false;
+            if (!br.ContainsKey((busRateId)))
+                return false;
+            BusRate rate = br[busRateId];
+            if (rate == null)
+                return false;
+            br.Remove(busRateId);
+            return true;
+        }
+
+        public string AddBusRate(int busTripId, BusRate busRate)
+        {
+            Dictionary<string, BusRate> br = GetBusRatesFromTripId(busTripId);
+            if (br == null)
+                return null;
+            busRate.RateId = Guid.NewGuid().ToString();
+            br.Add(busRate.RateId, busRate);
+            return busRate.RateId;
+        }
+
+        public BusRate GetBusRate(int busTripId, string busRateId)
+        {
+            Dictionary<string, BusRate> br = GetBusRatesFromTripId(busTripId);
+            if (br == null)
+                return null;
+            return br[busRateId];
+        }
+
+        public bool UpdateBusRate(int busTripId, BusRate busRate)
+        {
+            Dictionary<string, BusRate> br = GetBusRatesFromTripId(busTripId);
+            if (br == null || !br.ContainsKey(busRate.RateId))
+                return false;
+            br[busRate.RateId] = new BusRate(busRate);
+            return true;
+        }
+
+        public List<BusRate> GetAllBusRate(int busTripId)
+        {
+            Dictionary<string, BusRate> br = GetBusRatesFromTripId(busTripId);
+            if (br == null)
+                return null;
+            return br.Values.ToList();
+        }
+        #endregion
+
+        #region HelperMethods
+        private DateTime IncrementDateTimeMinutes(int minutes)
+        {
+            DateTime dateTime = DateTime.Now.AddMinutes(minutes);
+            return dateTime;
+        }
+
+        private BusInfo GetBusFromBusTripId(int busTripId)
+        {
+            Dictionary<int, BusInfo> busesDict = HttpRuntime.Cache[_busKey] as Dictionary<int, BusInfo>;
+            BusInfo bus = busesDict.Values.Where(x => string.Equals(x.BusTripId, busTripId)).First();
+            return bus;
+        }
+
+        private BusSchedule GetBusScheduleFromBusTripId(int busTripId)
+        {
+            var schDict = HttpRuntime.Cache[_schedule] as Dictionary<int, BusSchedule>;
+            if (schDict.ContainsKey(busTripId))
+                return schDict[busTripId];
+            else
+                return null;
+        }
+
+        private Dictionary<string, CityPoint> GetBusCityPointsFromTripId(int busTripId)
+        {
+            var cps = HttpRuntime.Cache[_cp] as Dictionary<int, Dictionary<string, CityPoint>>;
+            if (cps == null)
+                return null;
+            Dictionary<string, CityPoint> cpDict = cps[busTripId];
+            return cpDict;
+        }
+
+        private Dictionary<string, BusRate> GetBusRatesFromTripId(int busTripId)
+        {
+            var br = HttpRuntime.Cache[_rates] as Dictionary<int, Dictionary<string, BusRate>>;
+            if (br == null)
+                return null;
+            Dictionary<string, BusRate> brDict = br[busTripId];
+            return brDict;
+        }
+
+        public Location UpdateLoc(string cityName)
+        {
+            Location loc = new Location();
+            if (string.Equals(cityName, "Nagpur", StringComparison.OrdinalIgnoreCase))
+            {
+                loc.CityCode = "NGP";
+                loc.CityName = cityName;
+                loc.Latitude = 21.170M;
+                loc.Longitude = 79.089M;
+                loc.State = "Maharashtra";
+            }
+            else if (string.Equals(cityName, "Mumbai", StringComparison.OrdinalIgnoreCase))
+            {
+                loc.CityCode = "BOM";
+                loc.CityName = cityName;
+                loc.Latitude = 19.109M;
+                loc.Longitude = 72.879M;
+                loc.State = "Maharashtra";
+            }
+            else if (string.Equals(cityName, "Latur", StringComparison.OrdinalIgnoreCase))
+            {
+                loc.CityCode = "LAT";
+                loc.CityName = cityName;
+                loc.Latitude = 18.4014M;
+                loc.Longitude = 76.5812M;
+                loc.State = "Maharashtra";
+            }
+            else if (string.Equals(cityName, "Delhi", StringComparison.OrdinalIgnoreCase))
+            {
+                loc.CityCode = "DEL";
+                loc.CityName = cityName;
+                loc.Latitude = 28.664M;
+                loc.Longitude = 77.224M;
+                loc.State = "DEL";
+            }
+
+            return loc;
+        }
+        #endregion
+<<<<<<< HEAD
+
+=======
+>>>>>>> 05cc2372a67177016bba64b701a6c04d20c43a00
+    }
+}

@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        .whiteBox 
+        {
+            background-color: white;
+            border: 1px solid #CCC;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+        .ico-fwd 
+        {
+	        display:inline-block;
+	        background:url(images/ico_fwd_arrow.png) no-repeat;
+	        width:10px;
+	        height:10px;
+	        position:relative;
+	        margin:0 2px;
+        }
+        table.itinerary { border:1px solid #e5e5e5; margin-bottom:5px; }
+        table.itinerary tbody.border { border:1px solid #ccc; }
+        table.itinerary tr {  }
+        table.itinerary h5 { margin:0 0 8px 0; padding:0; }
+        table.itinerary p { margin:0; padding:0 0 5px 0; }
+        table.itinerary td a { text-decoration:none; }
+        table.itinerary th { background:#ebebeb;padding:10px 5px; font-size:12px; font-weight:bold; }
+        table.itinerary td { padding:5px; font-size:12px; background:#fff; }
+        table.itinerary td.expanded { border-bottom:none; }
+        table.itinerary td.details { background:#f7f7f7; }
+        table.itinerary th.setting { background-color: #c2c0c0;cursor: pointer;}
+        table.itinerary table td { padding:3px 5px; border-bottom:none; }
+        table.itinerary_details { border:1px solid #e5e5e5; }
+        table.itinerary table.itinerary_details td { background:#f6f6f6;padding:3px 8px; font-size:11px; }
+        table.headerr { margin-bottom: 0px !important; }
+    </style>
+</head>
+<body>
+    <div class="whiteBox" style="margin: 2px 0px; width: 73%; padding: 2px; float: left">
+        <div style="color: Green; padding: 10px; font-size: 10pt;">
+            <b>Congratulations! Your booking was successful.</b>
+        </div>
+    </div>
+    <div class="whiteBox" style="margin: 2px 0px; width: 25%; padding: 2px; float: right">
+        <div style="margin: 10px; font-size: 10pt; float: left">
+            Booking Id: <b id="bookingId">{BookingId}</b>
+        </div>
+        <div style="margin: 10px; font-size: 10pt; float: right">
+        </div>
+    </div>
+    <div class="whiteBox" style="width: 73%; padding: 2px; float: left">
+        <div id="resultsContainer">
+            <table width="100%" cellspacing="0" cellpadding="0" class="itinerary" id="Table2">
+                <tbody>
+                    <tr>
+                        <th width="20%" align="left" valign="middle" colspan="4">
+                            Bus and Journey details
+                        </th>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Bus name:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            {BusName}
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            <b>AC:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            {IsAC}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Operator:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            {OperatorName}
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Bus Type:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            {BusType}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Journey time:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            {JourneryTime}
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Per seat price:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            {Fare}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Email:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            {Email}
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Mobile:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            {ContactNumber}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Boarding at:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle" colspan="3">
+                            {PickupPoint.CPName}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Alignting at:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle" colspan="3">
+                            {DropOffPoint.CPName}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <b>Transaction Id:</b>
+                        </td>
+                        <td width="30%" align="left" valign="middle" colspan="3">
+                            {TransactionId}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table width="100%" cellspacing="0" cellpadding="0" class="itinerary">
+                {Passengers}
+            </table>
+            <table width="100%" cellspacing="0" cellpadding="0" class="itinerary">
+                <tr>
+                    <th width="100%" align="left" valign="middle">
+                        <b>Important information:</b>
+                    </th>
+                </tr>
+                <tr>
+                    <td width="100%" align="left" valign="middle">
+                        <ul>
+                            <li>This e-ticket is not transferable.</li>
+                            <li>This e-ticket is valid only for the details specified above.</li>
+                            <li>One of the passenger on this e-ticket is required to carry the print out of this
+                                e-ticket along with Photo ID Card in Original like Voter Id Card, Pan Card, Driving
+                                Licence, Passport.</li>
+                            <li>Corporation reserves the rights to change/cancel the bus service mentioned in the
+                                e-ticket.</li>
+                            <li>Passenger will have to pay the fare difference if any in case of Changeof Service
+                                or in case of Revision of fare.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%" align="center" valign="middle">
+                        <b>Wish You Happy Journey</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="whiteBox" style="width: 25%;padding: 2px; float: right">
+        <div id="bookingSummary">
+            <table width="100%" cellspacing="0" cellpadding="0" class="itinerary" id="Table4">
+                <tbody>
+                    <tr>
+                        <th width="30%" align="left" valign="middle" colspan="2">
+                            {From} <span class="ico-fwd"></span>{To}
+                        </th>
+                    </tr>
+                    <tr>
+                        <td width="40%">
+                            Travel Date:
+                        </td>
+                        <td width="60%">
+                            <b>{TravelDate}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="40%">
+                            Dapt time:
+                        </td>
+                        <td width="60%">
+                            <b>{DepartureTime}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="40%">
+                            Arrival time:
+                        </td>
+                        <td width="60%">
+                            <b>{ArrivalTime}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="40%">
+                            Seat(s):
+                        </td>
+                        <td width="60%" id="selectedSeats" style="word-wrap: break-word">
+                            <b>{SelectedSeats}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="40%">
+                            Total Amount:
+                        </td>
+                        <td width="60%" id="totalAmount">
+                            <b>Rs. {TotalAmount}</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

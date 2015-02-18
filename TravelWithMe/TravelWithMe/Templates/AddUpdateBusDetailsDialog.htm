@@ -1,0 +1,110 @@
+﻿<div>
+    <form id="frmAddOrEditBusDetials">
+    <h1 id="dialogHeader">
+        Edit Bus Details
+    </h1>
+    <div class="ico-close">
+    </div>
+    <div class="clear">
+    </div>
+    <div class="formbox">
+        <div class="formcontent">
+            <br />
+            <table width="750px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="tblInsertBus">
+                <tbody>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            Bus Name
+                        </td>
+                        <td width="30%" align="left" valign="middle" colspan="3">
+                            <input name="txtAUBBusName" type="text" class="width150 mrs" id="txtAUBBusName" value="{$T.BusName}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            Departs From
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            <input name="txtAUBFromCity" type="text" class="width150 mrs" id="txtAUBFromCity" placeholder="Type and select city" value="{#if $T.FromLoc}{$T.FromLoc.Name}{#/if}" />
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            Arrive At
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            <input name="txtAUBToCity" type="text" class="width150 mrs" id="txtAUBToCity" placeholder="Type and select city" value="{#if $T.ToLoc}{$T.ToLoc.Name}{#/if}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            Dept Time
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            <input name="txtAUBTimeDept" type="text" class="width75 mrs" id="txtAUBTimeDept" placeholder="Select time" value="{#if $T.DepartureTime}{$T.DepartureTime.Hours}:{$T.DepartureTime.Minutes} {$T.DepartureTime.Meridian}{#/if}" />
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            Arrival Time
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            Day
+                            <select name="cmbAUBArrDay" id="cmbAUBArrDay">
+                                <option {#if $T.ArrivalTime && $T.ArrivalTime.Days == 1}selected="selected"{#/if}>1</option>
+                                <option {#if $T.ArrivalTime && $T.ArrivalTime.Days == 2}selected="selected"{#/if}>2</option>
+                                <option {#if $T.ArrivalTime && $T.ArrivalTime.Days == 3}selected="selected"{#/if}>3</option>
+                                <option {#if $T.ArrivalTime && $T.ArrivalTime.Days == 4}selected="selected"{#/if}>4</option>
+                                <option {#if $T.ArrivalTime && $T.ArrivalTime.Days == 5}selected="selected"{#/if}>5</option>
+                            </select>
+                            AT
+                            <input name="txtAUBTimeArriv" type="text" class="width75 mrs" id="txtAUBTimeArriv" placeholder="Select time" value="{#if $T.ArrivalTime}{$T.ArrivalTime.Hours}:{$T.ArrivalTime.Minutes} {$T.ArrivalTime.Meridian}{#/if}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            AC
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                            <input type="checkbox" id="chkAUBAC" name="chkAUBAC" {#if $T.IsAC} checked="checked" {#/if} />
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            Bus Type
+                        </td>
+                         <td width="30%" align="left" valign="middle">
+                             <select name="cmbAUBBusType" id="cmbAUBBusType">
+                                <option {#if $T.BusType=="Seater"}selected="selected"{#/if} value="Seater">Seater</option>
+                                <option {#if $T.BusType=="Sleeper"}selected="selected"{#/if} value="Sleeper">Sleeper</option>
+                                <option {#if $T.BusType=="SemiSleeper"}selected="selected"{#/if} value="SemiSleeper">Semi Sleeper</option>
+                            </select>
+                         </td>
+                    </tr>
+                     <tr>
+                        <td width="20%" align="left" valign="middle">
+                        </td>
+                        <td width="30%" align="left" valign="middle">
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                        </td>
+                         <td width="30%" align="right" valign="middle">
+                             <div class="btnholder">
+                                <a href="#" class="button_orange" onclick="new BusDetailsManager().SaveBtn_click('{$T.BusTripId}');">Save</a>
+                             </div>
+                             <div class="btnholder">
+                                 <a href="#" class="button_orange"  id="btnCancel">Cancel</a>
+                             </div>
+                         </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clear">
+            </div>
+            <div class="clear">
+            </div>
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    </form>
+</div>
+<div class="clear">
+</div>
+

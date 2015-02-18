@@ -1,0 +1,229 @@
+﻿.seatarrangement {
+    border: 2px solid #cccbcb;
+    padding: 5px;
+    height: 280px;
+}
+
+.seatmaparea {
+    width: 80%;
+    position: relative;
+    float: left
+}
+
+.dragobjects {
+    -moz-border-radius:6px;
+    border:1px solid #B8B8B8;
+	border-bottom-left-radius: 6px 6px;
+	border-bottom-right-radius: 6px 6px;
+	border-top-left-radius: 6px 6px;
+	border-top-right-radius: 6px 6px;
+    margin: 5px;
+    height: 270px;
+    float: right;
+    width: 18%;
+    position: relative;
+}
+
+.seatBookInfo {
+    margin: 5px;
+    float: left;
+    width: 25%;
+    position: relative;
+    -moz-border-radius:6px;
+    border:1px solid #B8B8B8;
+	border-bottom-left-radius: 6px 6px;
+	border-bottom-right-radius: 6px 6px;
+	border-top-left-radius: 6px 6px;
+	border-top-right-radius: 6px 6px;
+}
+
+.deck {
+    -moz-border-radius:6px;
+    border:1px solid #B8B8B8;
+	border-bottom-left-radius: 6px 6px;
+	border-bottom-right-radius: 6px 6px;
+	border-top-left-radius: 6px 6px;
+	border-top-right-radius: 6px 6px;
+    margin: 5px;
+    height: 110px;
+    position: relative;
+}
+
+.cabin {
+    border-right: 1px solid #cccbcb;
+    height: 100px;
+    width: 50px;
+}
+
+.bookedSeat, .bookedBerthH, .bookedBerthV, .availableSeat, .availableLadiesSeat, .selectedSeat,
+.availableBerthH, .availableBerthV, .availableLadiesBerthH, .selectedLadiesSeat, .availableLadiesBerthV,
+.selectedBerthH, .selectedBerthV, .selectedLadiesBerthV, .selectedLadiesBerthH, .seatcontainer, .seat, .bearthcontainerH, .berthH, .bearthcontainerV, .berthV, .cabin {
+    position: absolute;
+}
+
+.seatcontainer, .bearthcontainerH, .bearthcontainerV {
+    border: 1px dashed #cccbcb;
+    background-color: rgb(247, 247, 247);
+}
+
+.bearthcontainerH {
+    width: 42px;
+    height: 22px;
+}
+
+.bearthcontainerV {
+    width: 22px;
+    height: 42px;
+}
+
+.activeContainer {
+    background-color: rgb(162, 215, 162);
+}
+
+.seatcontainer {
+    width: 22px;
+    height: 22px;
+}
+
+.bookedSeat, .availableSeat, .availableLadiesSeat, .selectedSeat, .selectedLadiesSeat {
+    width: 20px;
+    height: 20px;
+}
+
+.bookedBerthH, .availableBerthH, .availableLadiesBerthH, .selectedBerthH, .selectedLadiesBerthH {
+    width: 40px;
+    height: 20px;
+}
+
+.bookedBerthV, .availableBerthV, .availableLadiesBerthV, .selectedBerthV, .selectedLadiesBerthV {
+    width: 20px;
+    height: 40px;
+}
+
+.lowerDeck, .upperDeck, .driver{
+    position: absolute;
+    width: 20px;
+    top: 5px;
+    left: 5px;
+}
+
+.lowerDeck {
+    height: 71px;
+}
+
+.upperDeck {
+    height: 50px;
+    top: 20px;
+    left: 10px;
+}
+
+.driver {
+    height: 20px;
+}
+
+
+.bookedSeat, .bookedBerthH, .bookedBerthV, .availableSeat, .availableLadiesSeat, .selectedSeat,
+.availableBerthH, .availableBerthV, .availableLadiesBerthH, .selectedLadiesSeat, .availableLadiesBerthV,
+.selectedBerthH, .selectedBerthV, .selectedLadiesBerthV, .selectedLadiesBerthH, .driver, .lowerDeck, .upperDeck
+{
+    background-image:url(images/seatarrangement.gif);
+    background-repeat:no-repeat;
+    display:block;
+	outline-color:-moz-use-text-color;
+	outline-style:none;
+	outline-width:medium;
+	text-decoration: none;
+	text-indent:-9999px;
+}
+
+.availableSeat           { background-position:0 0px; }
+.availableLadiesSeat     { background-position:0 -20px; }
+.bookedSeat              { background-position:0 -40px; }
+.selectedSeat            { background-position:0 -60px; }
+.selectedLadiesSeat      { background-position:-20px -60px; }
+
+.availableBerthH        {  background-position:-40px 0; }
+.availableLadiesBerthH  { background-position:-40px -20px; }
+.bookedBerthH           { background-position:-40px -40px; }
+.selectedBerthH         { background-position:-40px -60px; }
+.selectedLadiesBerthH   { background-position:-80px -60px; }
+
+.availableBerthV       { background-position:-124px -0px; }
+.availableLadiesBerthV { background-position:-124px -40px; }
+.bookedBerthV          { background-position:-167px 0px; }
+.selectedBerthV        { background-position:-187px 0; }
+.selectedLadiesBerthV  { background-position:-187px -40px; }
+
+.driver  { background-position:-24px -106px; }
+.lowerDeck  { background-position: -24px -106px; }
+.upperDeck  { background-position: -58px -132px; }
+
+.avialMarker, .reserveMarker, .selectedMarker {
+    border:1px solid #0b0b0b;
+    width: 15px;
+    height: 15px;
+    float: left;
+}
+
+.avialMarker {
+    background-color: #ffffff;
+}
+
+.reserveMarker {
+    background-color: #dedede;
+}
+
+.selectedMarker {
+    background-color: #3fce6b;
+}
+
+.seatmapnavL, .seatmapnavR, .defaultSeatMap {
+    border: 1px solid #0b0b0b;
+    margin: 2px;
+    height: 270px;
+}
+
+.seatmapnavL, .seatmapnavR {
+    width: 10%;
+    cursor: pointer;
+}
+
+.seatmapnavL:hover, .seatmapnavR:hover {
+    background-color: #ebebeb;
+}
+
+.seatmapnavL {
+    float: left;
+}
+
+.seatmapnavR {
+    float: right;
+}
+
+.defaultSeatMap {
+    width: 77%;
+    float: left;
+}
+
+.seatmapheader {
+    position: relative;
+    height: 25px;
+
+    border-bottom: 1px solid;
+}
+
+#defaultArr :hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.selectedSeatMap {
+    width: 25px;
+    height: 25px;
+    background-color: #bfbfbf !important;
+    position: relative;
+    top: 248px;
+    left: 567px;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05F2C9E2-EEC4-44D5-8ED8-4339FD412DF2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TravelWithMe.Data.MySql</RootNamespace>
+    <AssemblyName>TravelWithMe.Data.MySql</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\MySql.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountDataProvider.cs" />
+    <Compile Include="BusDataProvider.cs" />
+    <Compile Include="CodeVerificationDataProvider.cs" />
+    <Compile Include="ContentDataProvider.cs" />
+    <Compile Include="DBExceptionLogger.cs" />
+    <Compile Include="Driver\AccountCommandBuilder.cs" />
+    <Compile Include="Driver\BusCommandBuilder.cs" />
+    <Compile Include="Driver\CommandBuilder.cs" />
+    <Compile Include="DbConfiguration.cs" />
+    <Compile Include="Driver\ContentCommandBuilder.cs" />
+    <Compile Include="Driver\InventoryCommandBuilder.cs" />
+    <Compile Include="Driver\MySqlDatabase.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="InventoryDataProvider.cs" />
+    <Compile Include="LoggingDataProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TravelWithMe.API.Core.Infra\TravelWithMe.API.Core.Infra.csproj">
+      <Project>{B2087812-8374-4EBE-82BC-CFE9FE5B9B13}</Project>
+      <Name>TravelWithMe.API.Core.Infra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.Core.Model\TravelWithMe.API.Core.Model.csproj">
+      <Project>{576CC9D8-20EA-4407-B8B1-5960BE7C792D}</Project>
+      <Name>TravelWithMe.API.Core.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.Data.Interfaces\TravelWithMe.Data.Interfaces.csproj">
+      <Project>{05049CD6-37B7-495C-8B5B-51221054FBCB}</Project>
+      <Name>TravelWithMe.Data.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.Logging.Helper\TravelWithMe.Logging.Helper.csproj">
+      <Project>{6E996343-6710-445C-A501-9F757783E46F}</Project>
+      <Name>TravelWithMe.Logging.Helper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DbBackup\booking_bookeditinerary.sql" />
+    <Content Include="DbBackup\booking_bookedseats.sql" />
+    <Content Include="DbBackup\booking_bookinginfo.sql" />
+    <Content Include="DbBackup\booking_itinerary.sql" />
+    <Content Include="DbBackup\booking_passenger.sql" />
+    <Content Include="DbBackup\booking_routines.sql" />
+    <Content Include="DbBackup\common_account.sql" />
+    <Content Include="DbBackup\common_address.sql" />
+    <Content Include="DbBackup\common_amenity.sql" />
+    <Content Include="DbBackup\common_bankaccount.sql" />
+    <Content Include="DbBackup\common_buscitypoint.sql" />
+    <Content Include="DbBackup\common_businfo.sql" />
+    <Content Include="DbBackup\common_busoperator.sql" />
+    <Content Include="DbBackup\common_busrate.sql" />
+    <Content Include="DbBackup\common_busschedule.sql" />
+    <Content Include="DbBackup\common_busscheduledates.sql" />
+    <Content Include="DbBackup\common_busscheduledays.sql" />
+    <Content Include="DbBackup\common_city.sql" />
+    <Content Include="DbBackup\common_citypoint.sql" />
+    <Content Include="DbBackup\common_country.sql" />
+    <Content Include="DbBackup\common_routines.sql" />
+    <Content Include="DbBackup\common_state.sql" />
+    <Content Include="DbBackup\InsertScripts\CommonInsertScripts.sql" />
+    <Content Include="DbBackup\logging_exceptions.sql" />
+    <Content Include="DbBackup\logging_logs.sql" />
+    <Content Include="DbBackup\logging_routines.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

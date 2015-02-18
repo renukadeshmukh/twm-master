@@ -1,0 +1,113 @@
+﻿<div>
+    <form id="frmEditBusSchedule">
+    <h1 id="dialogHeader">
+        Edit Bus Schedule
+    </h1>
+    <div class="ico-close">   
+    </div>
+    <div class="clear">  
+    </div>
+    <div class="formbox">
+        <div class="formcontent">
+            <br />
+            <div>
+                <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="Table1">
+                    <tbody>
+                        <tr>
+                            <td width="20%" align="left" valign="middle" rowspan="2">
+                                Frequency
+                            </td>
+                            <td width="80%" align="left" valign="middle">
+                                <select name="cmbBusFrequency" id="cmbBusFrequency">
+                                    <option {#if $T.BusSchedule && $T.BusSchedule.Frequency == "Daily"}selected="selected"{#/if}>Daily</option>
+                                    <option {#if $T.BusSchedule && $T.BusSchedule.Frequency == "SpecificWeekDays"}selected="selected"{#/if}>SpecificWeekDays</option>
+                                    <option {#if $T.BusSchedule && $T.BusSchedule.Frequency == "SpecificDates"}selected="selected"{#/if}>SpecificDates</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="dvWeekDays">
+                <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="tblInsertBus">
+                    <tbody>
+                        <tr>
+                            <th width="14%" align="left" valign="middle" colspan="7">
+                                Select Weekdays
+                            </th>
+                        </tr>
+                        <tr>
+                            <td width="14%" align="left" valign="middle" rowspan="2">
+                                <input type="checkbox" name="wdSun" value="Sun" id="wdSun" />
+                                Sun
+                            </td>
+                            <td width="14%" align="left" valign="middle">
+                                <input type="checkbox" name="wdMon" value="Mon" id="wdMon" />
+                                Mon
+                            </td>
+                            <td width="14%" align="left" valign="middle">
+                                <input type="checkbox" name="wdTue" value="Tue" id="wdTue" />
+                                Tue
+                            </td>
+                            <td width="14%" align="left" valign="middle">
+                                <input type="checkbox" name="wdWed" value="Wed" id="wdWed" />
+                                Wed
+                            </td>
+                            <td width="14%" align="left" valign="middle">
+                                <input type="checkbox" name="wdThu" value="Thu" id="wdThu" />
+                                Thu
+                            </td>
+                            <td width="14%" align="left" valign="middle">
+                                <input type="checkbox" name="wdFri" value="Fri" id="wdFri" />
+                                Fri
+                            </td>
+                            <td width="14%" align="left" valign="middle">
+                                <input type="checkbox" name="wdSat" value="Sat" id="wdSat" />
+                                Sat
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="dvDateRanges">
+                <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="tblDateRanges">
+                    <tr>
+                        <th width="10%" align="left" valign="middle" colspan="3">
+                            Enter dates information
+                        </th>
+                        <th width="10%" align="right" valign="middle" colspan="3">
+                            <a href="#" id="lnkAddDateRange" onclick="new BusScheduleManager().AddDateRangeElement(); return false;">+ Add Date Range</a>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="Table3">
+                <tbody>
+                    <tr>
+                        <td width="100%" align="right" valign="middle">
+                            <div class="btnholder">
+                                <a href="#" class="button_orange" id="btnCancel">Cancel</a>
+                            </div>
+                        </td>
+                        <td width="100%" align="right" valign="middle">
+                            <div class="btnholder">
+                                <a href="#" class="button_orange" onclick="new BusScheduleManager().UpdateBusSchedule('{$T.BusTripId}');">Save</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clear">
+            </div>
+            <div class="clear">
+            </div>
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    </form>
+</div>
+<div class="clear">
+</div>

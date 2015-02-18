@@ -1,0 +1,91 @@
+﻿<div>
+    <form id="frmCityPoint">
+    <h1 id="dialogHeader">
+        Add or Update bus stops
+    </h1>
+    <div class="ico-close">
+    </div>
+    <div class="clear">
+    </div>
+    <div class="formbox">
+        <div class="formcontent">
+            <br />
+            <div>
+                <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="Table1">
+                    <tr>
+                        <th width="30%" align="left" valign="middle">
+                            City
+                        </th>
+                        <th width="25%" align="left" valign="middle">
+                            Stop At
+                        </th>
+                        <th width="10%" align="center" valign="middle">
+                            Day
+                        </th>
+                        <th width="15%" align="left" valign="middle">
+                            Dept Time
+                        </th>
+                        <th width="10%" align="center" valign="middle">
+                            Pick Up
+                        </th>
+                        <th width="10%" align="center" valign="middle">
+                            Drop Off
+                        </th>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="left" valign="middle">
+                            <input name="txtCPCity" type="text" class="width150 mrs" id="txtCPCity" value="{$T.CityName}" />
+                        </td>
+                        <td width="25%" align="left" valign="middle">
+                            <input name="txtCPName" type="text" class="width150 mrs" id="txtCPName" value="{$T.CPName}" />
+                        </td>
+                        <td width="10%" align="left" valign="middle">
+                            <select name="cmbCPDay" id="cmbCPDay">
+                                <option {#if $T.CPTime && $T.CPTime.Days == 1}selected="selected"{#/if}>1</option>
+                                <option {#if $T.CPTime && $T.CPTime.Days == 2}selected="selected"{#/if}>2</option>
+                                <option {#if $T.CPTime && $T.CPTime.Days == 3}selected="selected"{#/if}>3</option>
+                                <option {#if $T.CPTime && $T.CPTime.Days == 4}selected="selected"{#/if}>4</option>
+                                <option {#if $T.CPTime && $T.CPTime.Days == 5}selected="selected"{#/if}>5</option>
+                            </select>
+                        </td>
+                        <td width="15%" align="left" valign="middle">
+                            <input name="txtCPDeptTime" type="text" class="width75 mrs" id="txtCPDeptTime" placeholder="Select time" value="{#if $T.CPTime}{$T.CPTime.Hours}:{$T.CPTime.Minutes} {$T.CPTime.Meridian}{#/if}" />
+                        </td>
+                        <td width="15%" align="center" valign="middle">
+                            <input type="checkbox" name="chkCPPickup" id="chkCPPickup" {#if $T.IsPickupPoint} checked="checked" {#/if} />
+                        </td>
+                        <td width="15%" align="center" valign="middle">
+                            <input type="checkbox" name="chkCPDropoff" id="chkCPDropoff" {#if $T.IsDropOffPoint} checked="checked" {#/if} />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="Table3">
+                <tbody>
+                    <tr>
+                        <td width="100%" align="right" valign="middle">
+                            <div class="btnholder">
+                                <a href="#" class="button_orange" onclick="busManager.CP.SaveBtn_click('{$T.CPId}');">
+                                    Save</a>
+                            </div>
+                            <div class="btnholder">
+                                <a href="#" class="button_orange" id="btnCancel">Cancel</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clear">
+            </div>
+            <div class="clear">
+            </div>
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    </form>
+</div>
+<div class="clear">
+</div>

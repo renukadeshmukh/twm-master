@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{43D7DBC3-8D19-4319-97A5-D147CB6E6C07}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TravelWithMe.API.Core.Factories</RootNamespace>
+    <AssemblyName>TravelWithMe.API.Core.Factories</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountProviderFactory.cs" />
+    <Compile Include="AuthenticationProviderFactory.cs" />
+    <Compile Include="BookingProviderFactory.cs" />
+    <Compile Include="BusProviderFactory.cs" />
+    <Compile Include="CacheProviderFactory.cs" />
+    <Compile Include="CaptchaProviderFactory.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="EmailProviderFactory.cs" />
+    <Compile Include="InventoryProviderFactory.cs" />
+    <Compile Include="MobileProviderFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionProviderFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TravelWithMe.API.AccountMgmt\TravelWithMe.API.AccountMgmt.csproj">
+      <Project>{A7422082-FDCD-4348-B826-14ACAFC74FF8}</Project>
+      <Name>TravelWithMe.API.AccountMgmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.BookingMgmt\TravelWithMe.API.BookingMgmt.csproj">
+      <Project>{73940C24-8EFC-41E1-9AA8-4A35C58754BC}</Project>
+      <Name>TravelWithMe.API.BookingMgmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.BusMgmt\TravelWithMe.API.BusMgmt.csproj">
+      <Project>{C1DB5D8A-F261-44C7-A4A1-148886F6251D}</Project>
+      <Name>TravelWithMe.API.BusMgmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.Core.AuthenticationMgmt\TravelWithMe.API.AuthenticationMgmt.csproj">
+      <Project>{49627E47-430E-4506-96B2-C1D02449EF9F}</Project>
+      <Name>TravelWithMe.API.AuthenticationMgmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.Core.Caching.Http\TravelWithMe.API.Core.Caching.Http.csproj">
+      <Project>{3D8E5B5B-1C5C-493C-991A-AC864D205501}</Project>
+      <Name>TravelWithMe.API.Core.Caching.Http</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.EmailMgmt\TravelWithMe.API.EmailMgmt.csproj">
+      <Project>{B9F1E44B-FD6E-4A3B-8700-9F538B621097}</Project>
+      <Name>TravelWithMe.API.EmailMgmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.Interfaces\TravelWithMe.API.Interfaces.csproj">
+      <Project>{1A0D9169-2C2C-475F-859F-91FA73029F6F}</Project>
+      <Name>TravelWithMe.API.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.InventoryMgmt\TravelWithMe.API.InventoryMgmt.csproj">
+      <Project>{F91E4C6D-2984-4870-BA36-D171D617D295}</Project>
+      <Name>TravelWithMe.API.InventoryMgmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.MobileMgmt\TravelWithMe.API.MobileMgmt.csproj">
+      <Project>{17EFB674-8C73-4F9C-A73F-1C3550D47024}</Project>
+      <Name>TravelWithMe.API.MobileMgmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.ReCaptcha\TravelWithMe.API.ReCaptcha.csproj">
+      <Project>{1490B8D3-EB12-4B69-868C-A7BFC1D5D33D}</Project>
+      <Name>TravelWithMe.API.ReCaptcha</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelWithMe.API.SessionMgmt\TravelWithMe.API.SessionMgmt.csproj">
+      <Project>{70BDB99B-25C8-4B08-B727-A83B48346826}</Project>
+      <Name>TravelWithMe.API.SessionMgmt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

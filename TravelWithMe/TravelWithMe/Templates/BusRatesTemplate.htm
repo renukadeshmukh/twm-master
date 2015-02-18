@@ -1,0 +1,51 @@
+﻿
+<table width="100%" cellspacing="0" cellpadding="0" class="itinerary">
+    <tbody>
+        <tr>
+            <th width="26%" align="left" valign="middle">
+                From
+            </th>
+            <th width="26%" align="left" valign="middle">
+                To
+            </th>
+            <th width="20%" align="left" valign="middle">
+                Weekday Rate
+            </th>
+            <th width="20%" align="left" valign="middle">
+                Weekend Rate
+            </th>
+            <th width="4%" align="left" valign="middle">
+            </th>
+            <th width="4%" align="left" valign="middle" class="setting" onclick="busManager.BR.ShowRateDialog('0');">
+                <div class="addDetails" title="Add bus Rate">
+                </div>
+            </th>
+        </tr>
+        {#if $T.BusRates}
+        {#foreach $T.BusRates as BR}
+        <tr id="Rate{$T.BR.RateId}">
+            <td width="26%" align="left" valign="middle">
+                {$T.BR.DateFrom}
+            </td>
+            <td width="26%" align="left" valign="middle">
+                {$T.BR.DateTo}
+            </td>
+            <td width="20%" align="left" valign="middle">
+                Rs. {$T.BR.WeekDayRate}
+            </td>
+            <td width="20%" align="left" valign="middle" >
+                Rs. {$T.BR.WeekEndRate}
+            </td>
+            <td width="4%" align="left" valign="middle" onclick="busManager.BR.ShowRateDialog('{$T.BR.RateId}');">
+                <div class="editdetails" title="Edit bus rate">
+                </div>
+            </td>
+            <td width="4%" align="left" valign="middle" onclick="busManager.BR.DeleteRate('{$T.BR.RateId}');">
+                <div class="deleteDetails" title="Delete bus rate">
+                </div>
+            </td>
+        </tr>
+        {#/for}
+        {#/if}
+    </tbody>
+</table>

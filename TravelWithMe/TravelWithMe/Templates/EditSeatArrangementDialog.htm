@@ -1,0 +1,152 @@
+﻿<div>
+    <form id="frmSeatArr">
+    <h1 id="dialogHeader">
+        Edit seat arrangement
+    </h1>
+    <div class="ico-close">
+    </div>
+    <div class="clear">
+    </div>
+    <div class="formbox">
+        <div class="formcontent">
+            <br />
+            <div>
+                <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="Table1">
+                    <tr>
+                        <tr>
+                            <th width="20%" align="center" valign="middle">
+                                Bus Type
+                            </th>
+                            <th width="20%" align="left" valign="middle">
+                                Bus Size
+                            </th>
+                            <th width="20%" align="left" valign="middle">
+                                Seat count
+                            </th>
+                            <th width="20%" align="left" valign="middle">
+                                Berth count
+                            </th>
+                            <th width="20%" align="left" valign="middle">
+                                Is AC Available?
+                            </th>
+                        </tr>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <select name="cmbBusType" id="cmbBusType">
+                                <option>Seater</option>
+                                <option>Sleeper</option>
+                            </select>
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            <select name="cmbBusSize" id="cmbBusSize">
+                                <option>2X2</option>
+                                <option>2X1</option>
+                            </select>
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            <input name="txtSeatCount" type="text" class="width75 mrs" id="txtSeatCount" value="{$T.SeatMap.SeatCount}" />
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            <input name="txtBerthCount" type="text" class="width75 mrs" id="txtBerthCount" value="{$T.SeatMap.BerthCount}" />
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            <input type="checkbox" name="chkIsAC" id="chkIsAC" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle">
+                            <a href="#" class="button_orange" id="lnkEdit" onclick="busManager.SAM.ShowDefaultSeatArr()">Show Defaults</a>
+                        </td>
+                        <td width="20%" align="left" valign="middle">
+                            Color notations:
+                        </td>
+                        <td width="20%" align="left" valign="middle" colspan="3">
+                            <div class="avialMarker"></div><div style="float: left; line-height: 15px">&nbsp; Available seats for online booking  &nbsp; &nbsp; &nbsp;  </div>
+                            <div class="reserveMarker"></div><div style="float: left; line-height: 15px">&nbsp; Reserved seats</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="left" valign="middle" colspan="5">
+                            <div class="seatarrangement">
+                                <div id="defaultArr">
+                                    <div class="seatmapnavL" MapIndex="0">
+                                        <div class="moveLeft"></div>
+                                    </div>
+                                    <div class="defaultSeatMap">
+                                        <div class="seatmapheader">
+                                            <div style="float: left; padding: 5px"></div>
+                                            <div style="float: right; background-color: #e4e3e3;">
+                                                <div id="btnEditSeatArr" style="margin: 5px" class="editdetails" onclick="busManager.SAM.InitEditArea()" index="0" title="Create your own seat arrengement by editing current arrangement"></div>
+                                            </div>
+                                        </div>
+                                        <div class="deck">
+                                            <div class="cabin">
+                                                <div class="lowerDeck"></div>
+                                            </div>
+                                        </div>
+                                        <div class="deck">
+                                            <div class="cabin">
+                                                <div class="upperDeck"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="seatmapnavR" MapIndex="0">
+                                        <div class="moveRight"></div>
+                                    </div> 
+                                    <div class="selectedSeatMap checked" style="display: none" title="Currently selected seatmap"></div>
+                                </div>
+                                <div id="editArea" style="display: none">
+                                    <div class="seatmaparea">
+                                        <div class="deck">
+                                            <div class="cabin">
+                                                <div class="lowerDeck"></div>
+                                            </div>
+                                        </div>
+                                        <div class="deck">
+                                            <div class="cabin">
+                                                <div class="upperDeck"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dragobjects">
+                                        <div class="availableSeat" style="top: 10px; left: 50px; z-index: 2"></div>
+                                        <div class="availableBerthH" style="top: 40px; left: 50px; z-index: 2"></div>
+                                        <div class="availableBerthV" style="top: 70px; left: 50px; z-index: 2"></div>
+                                        <div class="bookedSeat" style="top: 140px; left: 50px; z-index: 2"></div>
+                                        <div class="bookedBerthH" style="top: 170px; left: 50px; z-index: 2"></div>
+                                        <div class="bookedBerthV" style="top: 200px; left: 50px; z-index: 2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table width="700px" border="0" cellspacing="0" cellpadding="0" class="tickets" id="Table3">
+                <tbody>
+                    <tr>
+                        <td width="100%" align="right" valign="middle">
+                            <div class="btnholder">
+                                <a href="#" class="button_orange" id="btnSave">Save</a>
+                            </div>
+                            <div class="btnholder">
+                                <a href="#" class="button_orange" id="btnCancel">Cancel</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clear">
+            </div>
+            <div class="clear">
+            </div>
+            <br />
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    </form>
+</div>
+<div class="clear">
+</div>

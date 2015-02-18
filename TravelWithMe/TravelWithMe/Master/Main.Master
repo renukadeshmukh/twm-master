@@ -1,0 +1,285 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="TravelWithMe.Master.Main" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>BusSwitch</title>
+    <link href="~/Styles/SeatMap.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="~/Styles/images/favicon.png" />
+    <link href="~/Styles/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/jquery-ui-1.9.0.custom.min.css" rel="stylesheet" type="text/css" />
+    <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="../Scripts/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="../Scripts/jquery.validate.min.js" type="text/javascript"></script>
+    <%--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>--%>
+    <script src="../Scripts/Main.js" type="text/javascript"> </script>
+    <script src="../Scripts/JTemplate.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="siteHeader">
+        <div class="pageContent">
+            <div class="siteLogo">
+                
+            </div>
+            <div class="navigationBar">
+                
+                <div class="accountDetails">
+                    <ul id="nav">
+                        <li class="welcomeDiv">Welcome <b id="userName">Guest</b>!</li>
+	                    <li class="current"><a href="Home.aspx">Home</a></li>
+	                    <li><a href="../ContactUs.aspx">Contact Us</a></li>
+                        <li id="liMyAccount" style="display: none">
+	                        <a href="#">My Account</a>
+		                    <ul style="z-index: 100">
+		                        <li id="liManageBookings"><a href="../ManageBookings.aspx">Manage Bookings</a></li>
+			                    <li id="liManageBuses"><a href="../ManageBuses.aspx">Manage Buses</a></li>
+                                <li id="liBusOperators"><a href="#">Bus Operators</a></li>
+			                    <li id="liSettings"><a href="/OperatorSettings.aspx">Settings</a></li>
+                                <li><a href="#" id="lnkChangePassword">Change Password</a></li>
+			                    <li><a href="#" id="lnkLogout">Sign Out</a></li>
+		                    </ul>
+	                    </li>
+                        <li id="liSignIn"><a href="#" id="lnkSignin">Sign In</a></li>
+                    </ul>
+                </div>
+                
+                <div id="accessForm" class="modalbox" style="display: none" title="">
+                    <form id="formSignup" action="">
+                    </form>
+                    <form id="formSignin" action="">
+                    <div id="signup" style="display: none">
+                        <h1>
+                            New User? Register for free!</h1>
+                        <div class="ico-close">
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div class="formbox">
+                            <div class="formcontent">
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>Email</strong></div>
+                                    <div class="fieldcol">
+                                        <div class="textinfo">
+                                            <input name="txtEmail1" type="text" id="txtEmail1" />
+                                        </div>
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>First Name</strong></div>
+                                    <div class="fieldcol">
+                                        <input name="txtFirstName" type="text" id="txtFirstName" />
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>Last Name</strong></div>
+                                    <div class="fieldcol">
+                                        <input name="txtLastName" type="text" id="txtLastName" />
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>Phone Number</strong></div>
+                                    <div >
+                                        <table>
+                                            <tr>
+                                                <td><input name="txtPNCode" type="text" id="txtPNCode" class="width45 mrs" value="+91"/></td>
+                                                <td><input name="txtPNumber" type="text" id="txtPNumber" class="width200 mrs" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <input type="checkbox" checked="checked" id="chkTerms" name="chkTerms" value="termsofuse" />
+                                        <strong>I agree to BusSwitch <a href="../TermsOfUse.aspx" target="_blank">Terms of Use</a></strong>
+                                        </div>
+                                    <div class="fieldcol">
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div id='divCaptcha'>
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div class="btnholder">
+                            <a href="#" class="button_orange" id="btnRegister">Register</a></div>
+                        <div class="clear">
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div class="sign_box">
+                            Already a member? <a id="lnkSignInNow" href="#">Sign in now</a></div>
+                    </div>
+                    <div id="login" style="display: none">
+                        <h1>
+                            Sign in</h1>
+                        <div class="clear">
+                        </div>
+                        <div class="ico-close">
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div class="formbox">
+                            <div class="formcontent">
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>Email</strong></div>
+                                    <div class="fieldcol">
+                                        <div class="textinfo">
+                                            <input name="txtEmail" type="text" id="txtEmail" />
+                                        </div>
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>Password</strong></div>
+                                    <div class="fieldcol">
+                                        <input name="txtPassword" type="password" id="txtPassword" />
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div class="btnholder">
+                            <a href="#" class="button_orange" id="btnSignin">Sign in</a></div>
+                        <div class="clear">
+                        </div>
+                        <div class="sign_box">
+                            New user? <a id="lnkRegister" href="#">Register for free</a>
+                        </div>
+                        <div class="sign_box_operator">
+                            Bus operator? <a id="lnkRegisterOp" href="#">Register here</a>
+                        </div>
+                        <div class="forgot_box">
+                            Forgot password? <a id="lnkForgotPwd" href="#">Reset Now</a></div>
+                    </div>
+                    <div id="changePassword" class="modalbox" style="display: none">
+                        <h1>
+                            Change Password.</h1>
+                        <div class="clear">
+                        </div>
+                        <div class="ico-close">
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div class="formbox">
+                            <div class="formcontent">
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>Current Password</strong></div>
+                                    <div class="fieldcol">
+                                        <div class="textinfo">
+                                            <input name="txtCurrentPwd" type="password" id="txtCurrentPwd" />
+                                        </div>
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>New Password</strong></div>
+                                    <div class="fieldcol">
+                                        <input name="txtNewPassword" type="password" id="txtNewPassword" />
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="textcol">
+                                        <strong>Retype New Password</strong></div>
+                                    <div class="fieldcol">
+                                        <input name="txtNewPassword2" type="password" id="txtNewPassword2" />
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="formrow">
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div class="btnholder_center">
+                            <a href="javascript:void(0);" id="btnChangePwd" class="button_orange">Change Password</a></div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="siteContent">
+        <div class="clear">
+        </div>
+        <div>
+            <div id="divLoadingMain" class="ajax_loading" style="display: none;">
+                <center><img src="../Styles/images/loading.gif" /></center>
+                <div class="clear">
+                </div>
+                <label>
+                    Loading</label>
+            </div>
+        </div>
+        
+        <div class="pageContent">
+            <div id="divMessage" class="pam" style="display: none; z-index: 100">
+                The responsive navbar requires the collapse plugin and responsive Bootstrap CSS file.
+            </div>
+            <div id="dialogBoxContainer" class="modalbox"></div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            
+        </div>
+    </div>
+    <div class="clear"></div>
+    <%--<div class="siteFooter">
+        <div class="pageContent">
+            <div class="footerContainer">
+            About us | Privacy Policy | FAQs | Terms To Use
+            </div>
+        </div>
+    </div>--%>
+</body>
+</html>

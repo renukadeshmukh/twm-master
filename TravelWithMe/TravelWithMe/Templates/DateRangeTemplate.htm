@@ -1,0 +1,17 @@
+﻿<tr id="Range_{$T.RangeId}">
+    <td width="5%" align="left" valign="middle">
+        From
+    </td>
+    <td width="35%" align="left" valign="middle">
+        <input name="txtDateFrom{$T.RangeId}" type="text" class="width150 mrs" id="txtDateFrom{$T.RangeId}" value="{$T.From}" />
+    </td>
+    <td width="5%" align="left" valign="middle">
+        To
+    </td>
+    <td width="35%" align="left" valign="middle">
+        <input name="txtDateTo{$T.RangeId}" type="text" class="width150 mrs" id="txtDateTo{$T.RangeId}" value="{$T.To}" />
+    </td>
+    <td width="10%" align="center" valign="middle">
+        <a href="#" id="A1" onclick="new BusScheduleManager().RemoveDateRangeElement('{$T.RangeId}'); return false;">Remove</a>
+    </td>
+</tr>

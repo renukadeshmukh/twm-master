@@ -1,0 +1,85 @@
+﻿<table width="100%" cellspacing="0" cellpadding="0" class="itinerary" id="seatArrengment{$T.BusTripId}">
+    <tbody>
+        <tr>
+            <td width="10%" align="left" valign="middle" colspan="6">
+                <div>
+                    <div id="seatMapArea">
+                        <div class="seatmaparea" style="width: 70%">
+                            <div class="deck">
+                                <div class="cabin">
+                                    <div class="lowerDeck"></div>
+                                </div>
+                            </div>
+                            <div class="deck">
+                                <div class="cabin">
+                                    <div class="upperDeck"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="seatBookInfo" style="width: 28%">
+                            <table width="100%" style="table-layout: fixed" id="tblSeatDetails{$T.BusTripId}">
+                                <tr>
+                                    <td width="60%">Available seats</td>
+                                    <td width="40%"><div class="avialMarker"></div></td>
+                                </tr>
+                                <tr>
+                                    <td width="60%">Reserved seats</td>
+                                    <td width="40%"><div class="reserveMarker"></div></td>
+                                </tr>
+                                <tr>
+                                    <td width="60%">Selected seats</td>
+                                    <td width="40%"><div class="selectedMarker"></div></td>
+                                </tr>
+                                {#if $T.SeatMap.BerthCount != 0}
+                                <tr>
+                                    <td width="60%">Berth Count</td>
+                                    <td width="40%">{$T.SeatMap.BerthCount}</td>
+                                </tr>
+                                {#/if}
+                                {#if $T.SeatMap.SeatCount != 0}
+                                <tr>
+                                    <td width="60%">Seats Count</td>
+                                    <td width="40%">{$T.SeatMap.SeatCount}</td>
+                                </tr>
+                                {#/if}
+                                <tr>
+                                    <td colspan="2" width="60%">Selected seat(s):</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" width="60%" id="selectedSeats" style="word-wrap: break-word"></td>
+                                </tr>
+                                <tr>
+                                    <td width="60%">Amount:</td>
+                                    <td width="40%" id="totalAmount"><b>Rs. 0</b></td>
+                                </tr>
+                                <tr>
+                                    <td width="60%"></td>
+                                    <td width="40%">
+                                        <div class="btnholder">
+                                            <a href="#" class="button_orange" id="btnBook_{$T.BusTripId}">Book</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr style="display: none">
+            <td width="10%" align="left" valign="middle" colspan="6">
+                <div class="clear"></div>
+                <div class="right">
+                    <select name="cmbBoardingPoint" id="cmbBoardingPoint">
+                        <option value="0">-- Select pickup point ---</option>
+                        {#foreach $T.CityPoints as CP}
+                        {#if $T.CP.IsPickupPoint}
+                        <option value="{$T.CP.CPId}">{$T.CP.CPName}({$T.CP.CityName}) - {$T.CP.CPTime}</option>
+                        {#/if}
+                        {#/for}
+                    </select>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

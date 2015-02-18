@@ -1,0 +1,70 @@
+﻿<table width="100%" cellspacing="0" cellpadding="0" class="itinerary" id="seatArrengment{$T.BusTripId}">
+    <tbody>
+        <tr>
+            <th width="10%" align="left" valign="middle">
+                Is AC
+            </th>
+            <th width="30%" align="left" valign="middle">
+                Bus type
+            </th>
+            <th width="20%" align="left" valign="middle">
+                Bus Size
+            </th>
+            <th width="20%" align="left" valign="middle">
+                Berths
+            </th>
+            <th width="20%" align="left" valign="middle">
+                Seats
+            </th>
+            <th width="4%" align="left" valign="middle" class="setting" onclick="busManager.SAM.ShowEditSeatArrDialog('{$T.BusTripId}');">
+                <div class="editdetails" title="Edit seat arrengments">
+                </div>
+            </th>
+        </tr>
+        <tr>
+            {#if $T.SeatMap.NotSet}
+            <td width="10%" align="left" valign="middle" colspan="6">
+                {$T.SeatMap.NotSet}
+            </td>
+            {#else}
+            <td width="10%" align="left" valign="middle">
+                {#if $T.SeatMap.IsAC}AC{#else}Non AC{#/if}
+            </td>
+            <td width="30%" align="left" valign="middle">
+                {$T.SeatMap.BusType}
+            </td>
+            <td width="20%" align="left" valign="middle">
+                {#if $T.SeatMap.Decks}{$T.SeatMap.Decks[0].Size}{#/if}
+            </td>
+            <td width="20%" align="left" valign="middle">
+                {$T.SeatMap.BerthCount}
+            </td>
+            <td width="20%" align="left" valign="middle">
+                {$T.SeatMap.SeatCount}
+            </td>
+            {#/if}
+        </tr>
+        {#if !$T.SeatMap.NotSet}
+        <tr>
+            <td width="10%" align="left" valign="middle" colspan="6">
+                <div class="seatarrangement" style="height: {#if $T.SeatMap.Decks.length > 1}250px{#else}130px{#/if}">
+                    <div id="seatMapArea">
+                        <div class="seatmaparea" style="margin: 5px 40px; width: 85%">
+                            <div class="deck">
+                                <div class="cabin">
+                                    <div class="lowerDeck"></div>
+                                </div>
+                            </div>
+                            <div class="deck">
+                                <div class="cabin">
+                                    <div class="upperDeck"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {#/if}
+    </tbody>
+</table>

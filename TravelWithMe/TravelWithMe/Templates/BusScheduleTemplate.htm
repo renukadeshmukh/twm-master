@@ -1,0 +1,63 @@
+﻿ 
+ <table width="100%" cellspacing="0" cellpadding="0" class="itinerary" id="frequency{$T.BusTripId}">
+ <tbody>
+     <tr>
+         <th width="20%" align="left" valign="middle" {#if $T.BusSchedule && $T.BusSchedule.Frequency == "Daily"} colspan="3" {#/if}>
+             Frequency 
+         </th>
+         {#if $T.BusSchedule && $T.BusSchedule.Weekdays}
+         <th width="76%" align="left" valign="middle">
+             Week Days
+         </th>
+         {#/if}
+         {#if $T.BusSchedule && $T.BusSchedule.DateRanges}
+         <th width="38%" align="left" valign="middle">
+             From
+         </th>
+         <th width="38%" align="left" valign="middle">
+             To
+         </th>
+         {#/if}
+         <th width="4%" align="left" valign="middle" class="setting" onclick="new BusScheduleManager().ShowUpdateBusScheduleDialog('{$T.BusTripId}');">
+             <div class="editdetails" title="Edit bus frequency">
+             </div>
+         </th>
+     </tr>
+     {#if $T.BusSchedule && $T.BusSchedule.Frequency == "Daily"}
+     <tr>
+         <td width="20%" align="left" valign="middle">
+             {$T.BusSchedule.Frequency}
+         </td>
+         <td width="38%" align="left" valign="middle">
+         </td>
+         <td width="38%" align="left" valign="middle" colspan="2">
+         </td>
+     </tr>
+     {#/if}
+     {#if $T.BusSchedule && $T.BusSchedule.Weekdays}
+     <tr>
+         <td width="20%" align="left" valign="middle">
+             {$T.BusSchedule.Frequency}
+         </td>
+         <td width="76%" align="left" valign="middle" colspan="2">
+             {#foreach $T.BusSchedule.Weekdays as WeekDay}<span class="frequencyTag">{$T.WeekDay}</span>&nbsp;&nbsp;{#/for} 
+         </td>
+     </tr>
+     {#/if}
+     {#if $T.BusSchedule && $T.BusSchedule.DateRanges}
+     {#foreach $T.BusSchedule.DateRanges as DateRange}
+     <tr>
+         <td width="20%" align="left" valign="middle">
+             {#if $T.DateRange$first} {$T.BusSchedule.Frequency} {#/if}
+         </td>
+         <td width="38%" align="left" valign="middle">
+             {$T.DateRange.From}
+         </td>
+         <td width="38%" align="left" valign="middle" colspan="2">
+             {$T.DateRange.To} 
+         </td>
+     </tr>
+     {#/for}
+     {#/if}
+ </tbody>
+ </table>

@@ -1,0 +1,223 @@
+<<<<<<< HEAD
+﻿var busManager = null;
+$(document).ready(function () {
+    busManager = new BusManager();
+    busManager.GetBuses();
+});
+
+var BusManager = function () {
+    this.busShortInfoTemplate = null;
+    this.busDetailsTemplate = null;
+    this.busRatesTemplate = null;
+    this.busList = null;
+    this.selectedBusItem = null;
+    this.editBusTemplate = null;
+    this.updateBusScheduleTemplate = null;
+    this.DateRangeTemplate = null;
+    this.CityPointDailogTemplate = null;
+    this.BusRateDialogTemplete = null;
+    this.cpTemplate = null;
+
+    this.busShortInfoTemplate = $("#templateBusShortInfo").val();
+    this.busDetailsTemplate = $("#templateBusDetails").val();
+    $.get("../Templates/BusRatesTemplate.htm", function (data) {
+        busManager.busRatesTemplate = data;
+    });
+    $.get("../Templates/AddUpdateBusDetailsDialog.htm", function (data) {
+        busManager.editBusTemplate = data;
+    });
+    $.get("../Templates/UpdateBusSchedule.htm", function (data) {
+        busManager.updateBusScheduleTemplate = data;
+    });
+    $.get("../Templates/DateRangeTemplate.htm", function (data) {
+        busManager.DateRangeTemplate = data;
+    });
+    $.get("../Templates/CityPointDialog.htm", function (data) {
+        busManager.CityPointDailogTemplate = data;
+    });
+    $.get("../Templates/BusRateInfodialog.htm", function (data) {
+        busManager.BusRateDialogTemplete = data;
+    });
+    $.get("../Templates/CityPointsTemplate.htm", function (data) {
+        busManager.cpTemplate = data;
+    });
+    
+    this.GetBuses = function () {
+        //busManager.busList = new MockDataProvider().GetBusList();
+        //busManager.ShowBusList(busManager.busList);
+        //return;
+        EnableLoading = true;
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'get/BusService.svc/bus/getall/' + Session.AuthId,
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                if (data != null && data.IsSuccess && data.Buses != null && data.Buses != undefined) {
+                    busManager.busList = data;
+                    busManager.ShowBusList(data);
+                } else {
+                    showMessage('Error while getting user requests!!');
+                }
+            },
+            error: function () {
+                showMessage('Error while getting user requests!!');
+            }
+        });
+    };
+
+    this.ShowBusList = function () {
+        $("#buslistContainer").setTemplate(busManager.busShortInfoTemplate);
+        $("#buslistContainer").processTemplate(busManager.busList);
+        $("[id*=busItem]").hover(function (element) {
+            var id = element.currentTarget.id;
+            if (id != 'busItem' + busManager.selectedBusItem.BusTripId) {
+                $("#" + id + " tr td").css("background-color", "#e7ebf3");
+            }
+        }, function (element) {
+            var id = element.currentTarget.id;
+            if (id != 'busItem' + busManager.selectedBusItem.BusTripId) {
+                $("#" + id + " tr td").css("background-color", "white");
+            }
+        });
+        $("[id*=busItem]").click(function (element) {
+            var idParts = element.currentTarget.id.split("busItem");
+            busManager.SelectBus(idParts[1]);
+        });
+        busManager.SelectBus(busManager.busList.Buses[0].BusTripId);
+        $("#buslist").mCustomScrollbar();
+    };
+
+    this.SelectBus = function (busTripId) {
+        var lastSelectedBusItem = busManager.selectedBusItem;
+        for (var i = 0; i < busManager.busList.Buses.length; i++) {
+            if (busManager.busList.Buses[i].BusTripId == busTripId) {
+                busManager.selectedBusItem = busManager.busList.Buses[i];
+                new BusDetailsManager().ShowBusDetails(busManager.selectedBusItem);
+                break;
+            }
+        }
+        if (lastSelectedBusItem != null) {
+            var lsItemId = 'busItem' + lastSelectedBusItem.BusTripId;
+            $("#" + lsItemId + " tr td").css("background-color", "white");
+            $("#" + lsItemId).css("border-left-width", "1px");
+            $("#" + lsItemId).css("border-color", "#e5e5e5");
+        }
+        var sItemId = 'busItem' + busManager.selectedBusItem.BusTripId;
+        $("#" + sItemId + " tr td").css("background-color", "#e7ebf3");
+        $("#" + sItemId).css("border-left-width", "5px");
+        $("#" + sItemId).css("border-color", "#bab7b7");
+    };
+=======
+﻿var busManager = null;
+$(document).ready(function () {
+    busManager = new BusManager();
+    busManager.GetBuses();
+});
+
+var BusManager = function () {
+    this.busShortInfoTemplate = null;
+    this.busDetailsTemplate = null;
+    this.busRatesTemplate = null;
+    this.busList = null;
+    this.selectedBusItem = null;
+    this.editBusTemplate = null;
+    this.updateBusScheduleTemplate = null;
+    this.DateRangeTemplate = null;
+    this.CityPointDailogTemplate = null;
+    this.BusRateDialogTemplete = null;
+    this.EditSeatArrangementDialog = null;
+
+    this.busShortInfoTemplate = $("#templateBusShortInfo").val();
+    this.busDetailsTemplate = $("#templateBusDetails").val();
+    $.get("../Templates/BusRatesTemplate.htm", function (data) {
+        busManager.busRatesTemplate = data;
+    });
+    $.get("../Templates/AddUpdateBusDetailsDialog.htm", function (data) {
+        busManager.editBusTemplate = data;
+    });
+    $.get("../Templates/UpdateBusSchedule.htm", function (data) {
+        busManager.updateBusScheduleTemplate = data;
+    });
+    $.get("../Templates/DateRangeTemplate.htm", function (data) {
+        busManager.DateRangeTemplate = data;
+    });
+    $.get("../Templates/CityPointDialog.htm", function (data) {
+        busManager.CityPointDailogTemplate = data;
+    });
+    $.get("../Templates/BusRateInfodialog.htm", function (data) {
+        busManager.BusRateDialogTemplete = data;
+    });
+    $.get("../Templates/EditSeatArrangementDialog.htm", function (data) {
+        busManager.EditSeatArrangementDialog = data;
+    });
+    this.GetBuses = function () {
+        //busManager.busList = new MockDataProvider().GetBusList();
+        //busManager.ShowBusList(busManager.busList);
+        //return;
+        EnableLoading = true;
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'get/BusService.svc/bus/getall/' + Session.AuthId,
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                if (data != null && data.IsSuccess && data.Buses != null && data.Buses != undefined) {
+                    busManager.busList = data;
+                    busManager.ShowBusList(data);
+                } else {
+                    showMessage('Error while getting user requests!!');
+                }
+            },
+            error: function () {
+                showMessage('Error while getting user requests!!');
+            }
+        });
+    };
+
+    this.ShowBusList = function () {
+        $("#buslistContainer").setTemplate(busManager.busShortInfoTemplate);
+        $("#buslistContainer").processTemplate(busManager.busList);
+        $("[id*=busItem]").hover(function (element) {
+            var id = element.currentTarget.id;
+            if (id != 'busItem' + busManager.selectedBusItem.BusTripId) {
+                $("#" + id + " tr td").css("background-color", "#e7ebf3");
+            }
+        }, function (element) {
+            var id = element.currentTarget.id;
+            if (id != 'busItem' + busManager.selectedBusItem.BusTripId) {
+                $("#" + id + " tr td").css("background-color", "white");
+            }
+        });
+        $("[id*=busItem]").click(function (element) {
+            var idParts = element.currentTarget.id.split("busItem");
+            busManager.SelectBus(idParts[1]);
+        });
+        busManager.SelectBus(busManager.busList.Buses[0].BusTripId);
+        $("#buslist").mCustomScrollbar();
+    };
+
+    this.SelectBus = function (busTripId) {
+        var lastSelectedBusItem = busManager.selectedBusItem;
+        for (var i = 0; i < busManager.busList.Buses.length; i++) {
+            if (busManager.busList.Buses[i].BusTripId == busTripId) {
+                busManager.selectedBusItem = busManager.busList.Buses[i];
+                new BusDetailsManager().ShowBusDetails(busManager.selectedBusItem);
+                break;
+            }
+        }
+        if (lastSelectedBusItem != null) {
+            var lsItemId = 'busItem' + lastSelectedBusItem.BusTripId;
+            $("#" + lsItemId + " tr td").css("background-color", "white");
+            $("#" + lsItemId).css("border-left-width", "1px");
+            $("#" + lsItemId).css("border-color", "#e5e5e5");
+        }
+        var sItemId = 'busItem' + busManager.selectedBusItem.BusTripId;
+        $("#" + sItemId + " tr td").css("background-color", "#e7ebf3");
+        $("#" + sItemId).css("border-left-width", "5px");
+        $("#" + sItemId).css("border-color", "#bab7b7");
+    };
+>>>>>>> 41218a10eb1717a3d4c31f941026a9495fe8e2ac
+};

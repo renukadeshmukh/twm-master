@@ -1,0 +1,21 @@
+﻿<tr>
+    <td width="10%" align="left" valign="middle">
+        {#if $T.IsAC}AC{#else}Non AC{#/if}
+    </td>
+    <td width="30%" align="left" valign="middle">
+        Bus type({$T.BusType})
+    </td>
+    {#if $T.SeatArrangement}
+    <td width="20%" align="left" valign="middle">
+        Bus Size({$T.SeatArrangement.SeatType})
+    </td>
+    <td width="20%" align="left" valign="middle">
+        Berth({$T.SeatArrangement.NoOfBirths})
+    </td>
+    <th width="20%" align="left" valign="middle">
+        Seats({$T.SeatArrangement.NoOfSeats}) </td> {#/if}
+        <td width="4%" align="left" valign="middle" class="setting" onclick="busManager.SAM.ShowEditSeatArrDialog('{$T.BusTripId}');">
+            <div class="editdetails" title="Edit seat arrengments">
+            </div>
+        </td>
+</tr>

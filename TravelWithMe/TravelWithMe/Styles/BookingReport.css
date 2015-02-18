@@ -1,0 +1,40 @@
+﻿body
+{
+}
+
+.dvReportHeader
+{
+   
+}
+
+.dvReportBody
+{
+}
+
+.tdKey
+{
+    padding: 5px;
+    width: 80px;
+}
+
+.tdValue
+{
+    padding: 5px;
+    width: 190px;
+}
+
+select {
+    width: 190px;
+}
+
+.datePicker {
+    
+}
+
+.gvShow {
+    display: block;
+}
+
+.gvHide {
+    display: none;
+}

@@ -1,0 +1,57 @@
+﻿  <table width="100%" cellspacing="0" cellpadding="0" class="itinerary" id="citypoints{$T.BusTripId}">
+    <tbody>
+        <tr>
+            <th width="26%" align="left" valign="middle">
+                City
+            </th>
+            <th width="20%" align="left" valign="middle">
+                Stop At
+            </th>
+            <th width="15%" align="left" valign="middle">
+                Dept Time
+            </th>
+            <th width="15%" align="center" valign="middle">
+                Pick Up
+            </th>
+            <th width="15%" align="center" valign="middle">
+                Drop Off
+            </th>
+            <th width="4%" align="left" valign="middle">
+            </th>
+            <th width="4%" align="left" valign="middle" class="setting" onclick="busManager.CP.ShowCityPointDialog('0');">
+                <div class="addDetails" title="Add bus stops">
+                </div>
+            </th>
+        </tr
+        {#if $T.CityPoints}
+        {#foreach $T.CityPoints as CP}
+        <tr id="CP{$T.CP.CPId}">
+            <td width="26%" align="left" valign="middle">
+                {$T.CP.CityName}
+            </td>
+            <td width="20%" align="left" valign="middle">
+                {$T.CP.CPName}
+            </td>
+            <td width="25%" align="left" valign="middle">
+                {$T.CP.CPTime.Hours}:{$T.CP.CPTime.Minutes} {$T.CP.CPTime.Meridian}
+                            {#if $T.CP.CPTime.Days == 2}(next day){#/if}{#if $T.CP.CPTime.Days > 2}(day-{$T.CP.CPTime.Days}){#/if}
+            </td>
+            <td width="10%" align="center" valign="middle">
+                <input type="checkbox" disabled="disabled" {#if $T.CP.IsPickupPoint} checked="checked" {#/if} />
+            </td>
+            <td width="10%" align="center" valign="middle">
+                <input type="checkbox" disabled="disabled" {#if $T.CP.IsDropOffPoint} checked="checked" {#/if} />
+            </td>
+            <td width="4%" align="left" valign="middle" onclick="busManager.CP.ShowCityPointDialog('{$T.CP.CPId}');">
+                <div class="editdetails" title="Edit bus stop">
+                </div>
+            </td>
+            <td width="4%" align="left" valign="middle" onclick="busManager.CP.DeleteCityPoint('{$T.CP.CPId}');">
+                <div class="deleteDetails" title="Delete bus stop">
+                </div>
+            </td>
+        </tr>
+        {#/for}
+        {#/if}
+    </tbody>
+</table>
